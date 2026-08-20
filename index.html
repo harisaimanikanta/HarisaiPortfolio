@@ -479,13 +479,18 @@
             overflow: hidden;
             display: flex;
         }
-        .project-media-dual iframe {
-            width: 50%; height: 100%;
+        .project-media-dual .drive-frame-wrap {
+            width: 50%;
+            height: 100%;
+            flex: 0 0 50%;
+        }
+        .project-media-dual .drive-frame-wrap iframe {
+            width: 100%; height: 100%;
             border: none;
             display: block;
         }
         .project-media-dual .divider-v {
-            width: 2px; flex-shrink: 0;
+            width: 2px; flex: 0 0 2px;
             background: var(--obsidian);
         }
 
@@ -740,6 +745,65 @@
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation: none !important; transition: none !important; }
         }
+
+        /* ── DRIVE PLAYER FALLBACK ──
+           Google Drive's iframe player is cross-origin, so its internal
+           controls cannot be styled from this page. Keep the iframe intact,
+           but provide a clean project-card presentation and a direct-open
+           fallback instead of trying to manipulate Drive's player internals.
+        */
+        .project-media {
+            isolation: isolate;
+        }
+
+        .drive-frame-wrap {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .drive-frame-wrap iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .drive-open {
+            position: absolute;
+            left: 1rem;
+            bottom: 1rem;
+            z-index: 5;
+            display: inline-flex;
+            align-items: center;
+            gap: .55rem;
+            padding: .7rem 1rem;
+            background: rgba(8,8,8,.86);
+            border: 1px solid rgba(255,255,255,.18);
+            color: var(--cream);
+            text-decoration: none;
+            font-family: 'Space Mono', monospace;
+            font-size: .58rem;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+        }
+
+        .drive-open:hover {
+            background: var(--crimson);
+            border-color: var(--crimson);
+        }
+
+        @media (max-width: 768px) {
+            .drive-open {
+                left: .7rem;
+                bottom: .7rem;
+                font-size: .52rem;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -892,7 +956,7 @@
             <!-- ROW 1: Documentary + Logo Animation -->
             <div class="project-card reveal">
                 <div class="project-media">
-                    <iframe src="https://drive.google.com/file/d/1vBdngSxNjmnBgSDB8gaVyZLkt7Lb50b-/preview" allow="autoplay"></iframe>
+                    <div class="drive-frame-wrap"><iframe src="https://drive.google.com/file/d/1vBdngSxNjmnBgSDB8gaVyZLkt7Lb50b-/preview" allow="autoplay"></iframe><a class="drive-open" href="https://drive.google.com/file/d/1vBdngSxNjmnBgSDB8gaVyZLkt7Lb50b-/preview" target="_blank" rel="noopener"><i class="fas fa-up-right-from-square"></i> Open Video</a></div>
                 </div>
                 <div class="project-info">
                     <div class="project-meta">
@@ -906,7 +970,7 @@
 
             <div class="project-card reveal">
                 <div class="project-media">
-                    <iframe src="https://drive.google.com/file/d/18H6CdFUY1agChrEE9rX08py8OuPthwWz/preview" allow="autoplay"></iframe>
+                    <div class="drive-frame-wrap"><iframe src="https://drive.google.com/file/d/18H6CdFUY1agChrEE9rX08py8OuPthwWz/preview" allow="autoplay"></iframe><a class="drive-open" href="https://drive.google.com/file/d/18H6CdFUY1agChrEE9rX08py8OuPthwWz/preview" target="_blank" rel="noopener"><i class="fas fa-up-right-from-square"></i> Open Video</a></div>
                 </div>
                 <div class="project-info">
                     <div class="project-meta">
@@ -921,7 +985,7 @@
             <!-- ROW 2: Wedding vertical (left) + Vertical project (right) -->
             <div class="project-card vertical reveal">
                 <div class="project-media">
-                    <iframe src="https://drive.google.com/file/d/1McdrNXHc-rtFwhhpEyhFdphfCVtNt3fD/preview" allow="autoplay"></iframe>
+                    <div class="drive-frame-wrap"><iframe src="https://drive.google.com/file/d/1McdrNXHc-rtFwhhpEyhFdphfCVtNt3fD/preview" allow="autoplay"></iframe><a class="drive-open" href="https://drive.google.com/file/d/1McdrNXHc-rtFwhhpEyhFdphfCVtNt3fD/preview" target="_blank" rel="noopener"><i class="fas fa-up-right-from-square"></i> Open Video</a></div>
                 </div>
                 <div class="project-info">
                     <div class="project-meta">
@@ -935,7 +999,7 @@
 
             <div class="project-card vertical reveal">
                 <div class="project-media">
-                    <iframe src="https://drive.google.com/file/d/1j2sRTw175qRYpQj-dR7D5QqxM2NsyP-0/preview" allow="autoplay"></iframe>
+                    <div class="drive-frame-wrap"><iframe src="https://drive.google.com/file/d/1j2sRTw175qRYpQj-dR7D5QqxM2NsyP-0/preview" allow="autoplay"></iframe><a class="drive-open" href="https://drive.google.com/file/d/1j2sRTw175qRYpQj-dR7D5QqxM2NsyP-0/preview" target="_blank" rel="noopener"><i class="fas fa-up-right-from-square"></i> Open Video</a></div>
                 </div>
                 <div class="project-info">
                     <div class="project-meta">
@@ -949,7 +1013,7 @@
 
             <div class="project-card vertical reveal">
                 <div class="project-media">
-                    <iframe src="https://drive.google.com/file/d/1GrmOge7zaQSVMS-QejFghmAkZwUf1LDT/preview" allow="autoplay" title="Education Project"></iframe>
+                    <div class="drive-frame-wrap"><iframe src="https://drive.google.com/file/d/1GrmOge7zaQSVMS-QejFghmAkZwUf1LDT/preview" allow="autoplay" title="Education Project"></iframe><a class="drive-open" href="https://drive.google.com/file/d/1GrmOge7zaQSVMS-QejFghmAkZwUf1LDT/preview" target="_blank" rel="noopener"><i class="fas fa-up-right-from-square"></i> Open Video</a></div>
                 </div>
                 <div class="project-info">
                     <div class="project-meta">
@@ -965,9 +1029,9 @@
             <!-- ROW 3: Social Reels — full width at bottom -->
             <div class="project-card reveal" style="grid-column: span 2;">
                 <div class="project-media-dual">
-                    <iframe src="https://drive.google.com/file/d/1NhKvnr35bzcid1ET-pBYxomy52zSQhbk/preview" allow="autoplay" title="Reel 1"></iframe>
+                    <div class="drive-frame-wrap"><iframe src="https://drive.google.com/file/d/1NhKvnr35bzcid1ET-pBYxomy52zSQhbk/preview" allow="autoplay" title="Reel 1"></iframe><a class="drive-open" href="https://drive.google.com/file/d/1NhKvnr35bzcid1ET-pBYxomy52zSQhbk/preview" target="_blank" rel="noopener"><i class="fas fa-up-right-from-square"></i> Open Video</a></div>
                     <div class="divider-v"></div>
-                    <iframe src="https://drive.google.com/file/d/1Nrm8d0-D--MFedXpuHusGj6Ho2LIzyXv/preview" allow="autoplay" title="Reel 2"></iframe>
+                    <div class="drive-frame-wrap"><iframe src="https://drive.google.com/file/d/1Nrm8d0-D--MFedXpuHusGj6Ho2LIzyXv/preview" allow="autoplay" title="Reel 2"></iframe><a class="drive-open" href="https://drive.google.com/file/d/1Nrm8d0-D--MFedXpuHusGj6Ho2LIzyXv/preview" target="_blank" rel="noopener"><i class="fas fa-up-right-from-square"></i> Open Video</a></div>
                 </div>
                 <div class="project-info" style="padding: 2rem 2.5rem;">
                     <div class="project-meta">
