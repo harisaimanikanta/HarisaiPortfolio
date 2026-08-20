@@ -441,8 +441,10 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 2px;
+            align-items: start;
+            grid-auto-flow: dense;
         }
 
         .project-card {
@@ -462,16 +464,13 @@
         }
         .project-card.vertical .project-media {
             aspect-ratio: 9/16;
-            max-height: 560px;
+            max-height: 620px;
         }
 
         .project-media iframe {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             border: none;
             display: block;
-            position: absolute;
-            top: 0; left: 0;
         }
 
         .project-media-dual {
@@ -481,8 +480,7 @@
             display: flex;
         }
         .project-media-dual iframe {
-            width: 50%;
-            height: 100%;
+            width: 50%; height: 100%;
             border: none;
             display: block;
         }
@@ -695,10 +693,28 @@
             .about { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
             .about-left { position: static; }
             .work { padding: 5rem 1.5rem; }
-            .projects-grid { grid-template-columns: 1fr; }
+            .projects-grid {
+                grid-template-columns: 1fr;
+                grid-auto-flow: row;
+            }
             .project-card.featured { grid-column: span 1; }
-            .project-card.vertical .project-media { max-height: 70vh; }
-            .project-media-dual { aspect-ratio: 4/3; }
+            .project-card[style*="grid-column"] { grid-column: span 1 !important; }
+            .project-media-dual { aspect-ratio: 16/9; }
+            .project-card.vertical .project-media {
+                aspect-ratio: 9/16;
+                max-height: 75vh;
+                min-height: 0;
+            }
+            .project-media iframe {
+                width: 100%;
+                height: 100%;
+            }
+            .project-info {
+                padding: 1.25rem 1.25rem;
+            }
+            .project-title-text {
+                font-size: 1rem;
+            }
             .process { padding: 5rem 1.5rem; }
             .process-steps { grid-template-columns: 1fr 1fr; }
             .cta-section { padding: 6rem 1.5rem; }
@@ -707,6 +723,18 @@
             .footer-links { justify-content: center; }
             .section-divider { margin: 0 1.5rem; }
             .skills-grid { grid-template-columns: 1fr; }
+        }
+
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: clamp(2.8rem, 13vw, 4.2rem); }
+            .hero-sub { font-size: 0.9rem; }
+            .hero-cta-row { gap: 1.2rem; flex-wrap: wrap; }
+            .stat-row { gap: 1rem; }
+            .stat-num { font-size: 1.5rem; }
+            .project-media-dual { aspect-ratio: 16/9; }
+            .project-info { align-items: flex-start; gap: 1rem; }
+            .project-arrow { width: 34px; height: 34px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -919,23 +947,23 @@
                 </div>
             </div>
 
-            <!-- ROW 2b: Education -->
             <div class="project-card vertical reveal">
                 <div class="project-media">
-                    <iframe src="https://drive.google.com/file/d/1GrmOge7zaQSVMS-QejFghmAkZwUf1LDT/preview" allow="autoplay"></iframe>
+                    <iframe src="https://drive.google.com/file/d/1GrmOge7zaQSVMS-QejFghmAkZwUf1LDT/preview" allow="autoplay" title="Education Project"></iframe>
                 </div>
                 <div class="project-info">
                     <div class="project-meta">
-                        <div class="project-cat">Education · Explainer</div>
-                        <div class="project-title-text">Educational Content</div>
-                        <div class="project-desc">Clear, structured edits built to teach and hold attention.</div>
+                        <div class="project-cat">Education · Vertical Video</div>
+                        <div class="project-title-text">Education Project</div>
+                        <div class="project-desc">Vertical educational content edited for clear storytelling, retention, and social-first viewing.</div>
                     </div>
                     <div class="project-arrow"><i class="fas fa-arrow-up-right-from-square" style="font-size:0.65rem;"></i></div>
                 </div>
             </div>
 
+
             <!-- ROW 3: Social Reels — full width at bottom -->
-            <div class="project-card featured reveal">
+            <div class="project-card reveal" style="grid-column: span 2;">
                 <div class="project-media-dual">
                     <iframe src="https://drive.google.com/file/d/1NhKvnr35bzcid1ET-pBYxomy52zSQhbk/preview" allow="autoplay" title="Reel 1"></iframe>
                     <div class="divider-v"></div>
